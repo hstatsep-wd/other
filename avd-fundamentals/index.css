@@ -1,0 +1,32 @@
+/* DIRECTIONS */
+/* The CSS for this page is horrible! */
+/* Use your knowledge of Applied Visual Design Fundamentals to make this page look better! */
+/* HOW you make this page look better is completely up to you. */
+/* Change AT LEAST one property in EACH category */
+/* (there are 3 categories, so you should be making at least 3 changes) */
+
+/* SPACING */
+/* padding, margin, line-height */
+
+/* COLORS */
+/* color, background */
+
+/* TYPOGRAPHY */
+/* font-size, font-family, font-weight, line-height */
+
+
+body {
+  background-color: #014BCB;
+}
+
+.content {
+  background-color: #04FF14;
+}
+
+h3 {
+  color: #FF69F5;
+}
+
+li {
+  color: white;
+}

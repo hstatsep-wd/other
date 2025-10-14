@@ -1,4 +1,4 @@
-cd ~/cli2
+cd ~
 rm -rf *
 mkdir nyc nyc/brooklyn nyc/brooklyn/bay-ridge nyc/brooklyn/bay-ridge/fort-hamilton nyc/brooklyn/bay-ridge/hstat nyc/brooklyn/sunset-park nyc/manhattan nyc/queens nyc/staten-island nyc/staten-island/sith nyc/the-bronx
 
