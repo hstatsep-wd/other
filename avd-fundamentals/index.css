@@ -16,15 +16,15 @@
 
 
 body {
-  background-color: #014BCB;
+  background-color: orange;
 }
 
 .content {
-  background-color: #04FF14;
+  background-color: cyan;
 }
 
 h3 {
-  color: #FF69F5;
+  color: cyan;
 }
 
 li {
