@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indentation Structure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-container {
+            position: relative;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.5rem;
+        }
+        .line-numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3rem;
+            padding: 1rem 0;
+            text-align: center;
+            color: #64748b;
+            background-color: #0f172a;
+            border-right: 1px solid #334155;
+            user-select: none;
+            height: 100%;
+            overflow: hidden;
+            font-size: 0.875rem;
+            border-top-left-radius: 0.5rem;
+            border-bottom-left-radius: 0.5rem;
+        }
+        .code-editor {
+            padding-left: 3.5rem !important;
+            tab-size: 4;
+            -moz-tab-size: 4;
+            white-space: pre;
+            overflow-wrap: normal;
+            line-height: 1.5rem;
+        }
+        .correct-indent {
+            background-color: #d1fae5 !important;
+            border-color: #10b981 !important;
+            color: #064e3b !important;
+        }
+        .error-indent {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #7f1d1d !important;
+        }
+        kbd {
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen font-sans">
+
+    <div class="max-w-4xl mx-auto py-10 px-6">
+        <header class="mb-10 border-b pb-6">
+            <h1 class="text-3xl font-bold text-slate-800">Indentation Structure</h1>
+            <p class="mt-2 text-slate-600">
+                Before we use Bootstrap's Grid, we must master <strong>Structural Hierarchy</strong>. 
+                In Bootstrap, a missing <code>&lt;/div&gt;</code> or a misplaced column will break your entire layout.
+            </p>
+        </header>
+
+        <!-- Activity 1: The NYC Hierarchy -->
+        <section class="bg-white rounded-xl shadow-md p-8 mb-12 border border-slate-200">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-blue-700">Activity 1: The Indentation Surgeon</h2>
+                    <p class="text-sm text-slate-500 mt-1">
+                        Use <kbd class="bg-slate-200 px-1 rounded text-xs border border-slate-300">Tab</kbd> to indent and <kbd class="bg-slate-200 px-1 rounded text-xs border border-slate-300">Shift + Tab</kbd> to un-indent.
+                    </p>
+                </div>
+                <div id="status-badge-1" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500 uppercase tracking-wider transition-all">
+                    Waiting...
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="md:col-span-3">
+                    <div class="code-container h-[450px]">
+                        <div id="line-numbers-1" class="line-numbers"></div>
+                        <textarea 
+                            id="nyc-editor" 
+                            class="code-editor w-full h-full p-4 bg-slate-900 text-green-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none resize-none transition-colors border-4 border-transparent"
+                            spellcheck="false"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <h3 class="font-bold text-blue-800 text-sm mb-2 border-b border-blue-200 pb-1">The Goal:</h3>
+                        <ul class="text-xs font-mono text-blue-700 space-y-1">
+                            <li>nyc</li>
+                            <li class="pl-3 border-l border-blue-200">brooklyn</li>
+                            <li class="pl-6 border-l border-blue-200">bay-ridge</li>
+                            <li class="pl-9 border-l border-blue-200">fort-hamilton</li>
+                            <li class="pl-9 border-l border-blue-200">hstat</li>
+                            <li class="pl-6 border-l border-blue-200">sunset-park</li>
+                            <li class="pl-3 border-l border-blue-200">manhattan</li>
+                            <li class="pl-3 border-l border-blue-200">queens</li>
+                            <li class="pl-3 border-l border-blue-200">staten-island</li>
+                            <li class="pl-6 border-l border-blue-200">sith</li>
+                            <li class="pl-3 border-l border-blue-200">the-bronx</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-2">
+                        <button onclick="checkIndentation1()" class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-all shadow-lg active:scale-95">Check Structure</button>
+                        <button onclick="resetActivity1()" class="w-full py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-all">Reset</button>
+                    </div>
+                    <div id="feedback-1" class="hidden p-3 rounded text-sm font-bold block transition-all text-center"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Activity 2: The Copy-Paste Challenge -->
+        <section class="bg-white rounded-xl shadow-md p-8 mb-8 border border-slate-200">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h2 class="text-xl font-bold text-purple-700">Activity 2: The Copy-Paste Fixer</h2>
+                    <p class="text-sm text-slate-500 mt-1">
+                        Paste the rectangle and rhombus into the parallelogram and then fix the indentations.
+                    </p>
+                </div>
+                <div id="status-badge-2" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-500 uppercase tracking-wider transition-all">
+                    Waiting...
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Source Code (Static) -->
+                <div class="md:col-span-1 space-y-4">
+                    <div class="bg-slate-900 p-3 rounded-lg text-[10px] font-mono text-pink-400 overflow-x-auto border-2 border-slate-700">
+                        <div class="text-slate-500 mb-1 border-b border-slate-700 pb-1 text-[9px]">DOCS SNIPPET</div>
+                        <div id="snippet-text">&lt;div id="rectangle"&gt;
+	&lt;div id="square1"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="rhombus"&gt;
+	&lt;div id="square2"&gt;&lt;/div&gt;
+&lt;/div&gt;</div>
+                    </div>
+                    <button id="copy-btn" onclick="copySnippet()" class="w-full py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold rounded flex items-center justify-center gap-2 transition-all">
+                        <span>Copy Snippet</span>
+                    </button>
+
+                    <div class="bg-purple-50 p-4 rounded-lg border border-purple-100">
+                        <h3 class="font-bold text-purple-800 text-sm mb-2 border-b border-purple-200 pb-1">The Goal:</h3>
+                        <ul class="text-[10px] font-mono text-purple-700 space-y-1">
+                            <li>quadrilateral</li>
+                            <li class="pl-3 border-l border-purple-200">parallelogram</li>
+                            <li class="pl-6 border-l border-purple-200">rectangle</li>
+                            <li class="pl-9 border-l border-purple-200">square1</li>
+                            <li class="pl-6 border-l border-purple-200">rhombus</li>
+                            <li class="pl-9 border-l border-purple-200">square2</li>
+                            <li class="pl-3 border-l border-purple-200">trapezoid</li>
+                            <li class="pl-6 border-l border-purple-200">iso-trapezoid</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Editable Workspace -->
+                <div class="md:col-span-3 space-y-4">
+                    <div class="code-container h-[400px]">
+                        <div id="line-numbers-2" class="line-numbers"></div>
+                        <textarea 
+                            id="quad-editor" 
+                            class="code-editor w-full h-full p-4 bg-slate-900 text-green-400 rounded-lg focus:ring-2 focus:ring-purple-500 focus:outline-none resize-none transition-colors border-4 border-transparent"
+                            spellcheck="false"
+                        ></textarea>
+                    </div>
+                    <div class="flex gap-4">
+                        <button onclick="checkIndentation2()" class="flex-grow py-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-all shadow-lg active:scale-95">Check Structure</button>
+                        <button onclick="resetActivity2()" class="px-6 py-3 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-lg transition-all">Reset</button>
+                    </div>
+                    <div id="feedback-2" class="hidden p-3 rounded text-sm font-bold block transition-all text-center"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // --- Shared Logic ---
+        function handleTab(e, el, lineNumbersEl, updateBadgeFn) {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = el.selectionStart;
+                const end = el.selectionEnd;
+                const value = el.value;
+
+                if (start !== end) {
+                    const startOfFirstLine = value.lastIndexOf('\n', start - 1) + 1;
+                    let endOfLastLine = value.indexOf('\n', end);
+                    if (endOfLastLine === -1) endOfLastLine = value.length;
+                    const selection = value.substring(startOfFirstLine, endOfLastLine);
+                    const lines = selection.split('\n');
+                    let newSelection;
+                    if (!e.shiftKey) {
+                        newSelection = lines.map(line => line.length > 0 ? '\t' + line : line).join('\n');
+                    } else {
+                        newSelection = lines.map(line => line.startsWith('\t') ? line.substring(1) : line).join('\n');
+                    }
+                    el.value = value.substring(0, startOfFirstLine) + newSelection + value.substring(endOfLastLine);
+                    el.selectionStart = startOfFirstLine;
+                    el.selectionEnd = startOfFirstLine + newSelection.length;
+                } else {
+                    const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+                    if (!e.shiftKey) {
+                        el.value = value.substring(0, lineStart) + "\t" + value.substring(lineStart);
+                        el.selectionStart = start + 1;
+                        el.selectionEnd = end + 1;
+                    } else {
+                        if (value.substring(lineStart, lineStart + 1) === "\t") {
+                            el.value = value.substring(0, lineStart) + value.substring(lineStart + 1);
+                            el.selectionStart = Math.max(lineStart, start - 1);
+                            el.selectionEnd = Math.max(lineStart, end - 1);
+                        }
+                    }
+                }
+                updateBadgeFn('Testing...');
+                el.classList.remove('error-indent', 'correct-indent');
+                updateLines(el, lineNumbersEl);
+            }
+        }
+
+        function updateLines(editorEl, lineNumbersEl) {
+            const lines = editorEl.value.split('\n');
+            lineNumbersEl.innerHTML = lines.map((_, i) => `<div>${i + 1}</div>`).join('');
+            lineNumbersEl.scrollTop = editorEl.scrollTop;
+        }
+
+        // --- Activity 1 Logic ---
+        const editor1 = document.getElementById('nyc-editor');
+        const nums1 = document.getElementById('line-numbers-1');
+        const startState1 = `<div id="nyc">
+<div id="brooklyn">
+<div id="bay-ridge">
+<div id="fort-hamilton"></div>
+<div id="hstat"></div>
+</div>
+<div id="sunset-park"></div>
+</div>
+<div id="manhattan"></div>
+<div id="queens"></div>
+<div id="staten-island">
+<div id="sith"></div>
+</div>
+<div id="the-bronx"></div>
+</div>`;
+        const sol1 = [0, 1, 2, 3, 3, 2, 2, 1, 1, 1, 1, 2, 1, 1, 0];
+
+        function resetActivity1() {
+            editor1.value = startState1;
+            updateLines(editor1, nums1);
+            document.getElementById('feedback-1').classList.add('hidden');
+            updateBadge(1, 'Waiting...');
+            editor1.classList.remove('error-indent', 'correct-indent');
+        }
+
+        editor1.addEventListener('scroll', () => nums1.scrollTop = editor1.scrollTop);
+        editor1.addEventListener('input', () => updateLines(editor1, nums1));
+        editor1.addEventListener('keydown', (e) => handleTab(e, editor1, nums1, (t) => updateBadge(1, t)));
+
+        function checkIndentation1() {
+            const lines = editor1.value.split('\n');
+            const fb = document.getElementById('feedback-1');
+            if (lines.length !== sol1.length) {
+                showFeedback(fb, "Structure Mismatch: The line count has changed.", "error");
+                return;
+            }
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].match(/^\t*/)[0].length !== sol1[i]) {
+                    showFeedback(fb, `Indentation Error: Check line ${i+1}.`, "error");
+                    updateBadge(1, 'Error Found', 'error');
+                    editor1.className = editor1.className.replace(/error-indent|correct-indent/g, '') + ' error-indent';
+                    return;
+                }
+            }
+            showFeedback(fb, "Success!", "success");
+            updateBadge(1, 'Verified', 'success');
+            editor1.className = editor1.className.replace(/error-indent|correct-indent/g, '') + ' correct-indent';
+        }
+
+        // --- Activity 2 Logic ---
+        const editor2 = document.getElementById('quad-editor');
+        const nums2 = document.getElementById('line-numbers-2');
+        const startState2 = `<div id="quadrilateral">
+	<div id="parallelogram">
+\t\t
+	</div>
+	<div id="trapezoid">
+		<div id="iso-trapezoid"></div>
+	</div>
+</div>`;
+        const sol2 = [0, 1, 2, 3, 2, 2, 3, 2, 1, 1, 2, 1, 0];
+
+        function resetActivity2() {
+            editor2.value = startState2;
+            updateLines(editor2, nums2);
+            document.getElementById('feedback-2').classList.add('hidden');
+            updateBadge(2, 'Waiting...');
+            editor2.classList.remove('error-indent', 'correct-indent');
+            
+            setTimeout(() => {
+                editor2.focus();
+                const pos = editor2.value.indexOf('\t\t\n', 0) + 2; 
+                editor2.setSelectionRange(pos, pos);
+            }, 50);
+        }
+
+        function copySnippet() {
+            const text = `<div id="rectangle">
+	<div id="square1"></div>
+</div>
+<div id="rhombus">
+	<div id="square2"></div>
+</div>`;
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            
+            const btn = document.getElementById('copy-btn');
+            const oldText = btn.innerHTML;
+            btn.innerHTML = "✅ Copied!";
+            setTimeout(() => btn.innerHTML = oldText, 1500);
+        }
+
+        editor2.addEventListener('scroll', () => nums2.scrollTop = editor2.scrollTop);
+        editor2.addEventListener('input', () => updateLines(editor2, nums2));
+        editor2.addEventListener('keydown', (e) => handleTab(e, editor2, nums2, (t) => updateBadge(2, t)));
+
+        function checkIndentation2() {
+            const lines = editor2.value.split('\n'); 
+            const fb = document.getElementById('feedback-2');
+            
+            if (lines.length !== sol2.length) {
+                showFeedback(fb, `Structure Error: Expected ${sol2.length} lines. You have ${lines.length}.`, "error");
+                return;
+            }
+
+            for (let i = 0; i < lines.length; i++) {
+                const leadingTabs = lines[i].match(/^\t*/)[0].length;
+                if (leadingTabs !== sol2[i]) {
+                    showFeedback(fb, `Indentation Error: Check line ${i+1}.`, "error");
+                    updateBadge(2, 'Error Found', 'error');
+                    editor2.className = editor2.className.replace(/error-indent|correct-indent/g, '') + ' error-indent';
+                    return;
+                }
+            }
+
+            showFeedback(fb, "Success!", "success");
+            updateBadge(2, 'Verified', 'success');
+            editor2.className = editor2.className.replace(/error-indent|correct-indent/g, '') + ' correct-indent';
+        }
+
+        // --- UI Helpers ---
+        function updateBadge(id, text, type = 'neutral') {
+            const b = document.getElementById(`status-badge-${id}`);
+            b.innerText = text;
+            b.className = 'px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider transition-all ';
+            if (type === 'success') b.className += 'bg-green-100 text-green-600 shadow-sm';
+            else if (type === 'error') b.className += 'bg-red-100 text-red-600 shadow-sm';
+            else b.className += 'bg-slate-100 text-slate-500';
+        }
+
+        function showFeedback(el, msg, type) {
+            el.innerText = msg;
+            el.classList.remove('hidden');
+            el.className = `p-3 rounded text-sm font-bold block transition-all ${type === 'success' ? 'bg-green-500 text-white' : 'bg-red-100 text-red-800'}`;
+        }
+
+        // Initialize
+        resetActivity1();
+        resetActivity2();
+    </script>
+</body>
+</html>
