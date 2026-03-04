@@ -41,10 +41,9 @@
             border-color: #10b981 !important;
             color: #064e3b !important;
         }
-        .error-indent {
-            background-color: #fee2e2 !important;
+        /* Error state now only affects border or feedback, not background */
+        .error-border {
             border-color: #ef4444 !important;
-            color: #7f1d1d !important;
         }
         kbd {
             box-shadow: 0 1px 0 rgba(0,0,0,0.2);
@@ -218,7 +217,7 @@
                     }
                 }
                 updateBadgeFn('Testing...');
-                el.classList.remove('error-indent', 'correct-indent');
+                el.classList.remove('error-border', 'correct-indent');
                 updateLines(el, lineNumbersEl);
             }
         }
@@ -254,31 +253,38 @@
             updateLines(editor1, nums1);
             document.getElementById('feedback-1').classList.add('hidden');
             updateBadge(1, 'Waiting...');
-            editor1.classList.remove('error-indent', 'correct-indent');
+            editor1.classList.remove('error-border', 'correct-indent');
         }
 
         editor1.addEventListener('scroll', () => nums1.scrollTop = editor1.scrollTop);
-        editor1.addEventListener('input', () => updateLines(editor1, nums1));
+        editor1.addEventListener('input', () => {
+            updateLines(editor1, nums1);
+            editor1.classList.remove('error-border', 'correct-indent');
+        });
         editor1.addEventListener('keydown', (e) => handleTab(e, editor1, nums1, (t) => updateBadge(1, t)));
 
         function checkIndentation1() {
             const lines = editor1.value.split('\n');
             const fb = document.getElementById('feedback-1');
+            
+            editor1.classList.remove('error-border', 'correct-indent');
+
             if (lines.length !== sol1.length) {
                 showFeedback(fb, "Structure Mismatch: The line count has changed.", "error");
+                editor1.classList.add('error-border');
                 return;
             }
             for (let i = 0; i < lines.length; i++) {
                 if (lines[i].match(/^\t*/)[0].length !== sol1[i]) {
                     showFeedback(fb, `Indentation Error: Check line ${i+1}.`, "error");
                     updateBadge(1, 'Error Found', 'error');
-                    editor1.className = editor1.className.replace(/error-indent|correct-indent/g, '') + ' error-indent';
+                    editor1.classList.add('error-border');
                     return;
                 }
             }
             showFeedback(fb, "Success!", "success");
             updateBadge(1, 'Verified', 'success');
-            editor1.className = editor1.className.replace(/error-indent|correct-indent/g, '') + ' correct-indent';
+            editor1.classList.add('correct-indent');
         }
 
         // --- Activity 2 Logic ---
@@ -299,7 +305,7 @@
             updateLines(editor2, nums2);
             document.getElementById('feedback-2').classList.add('hidden');
             updateBadge(2, 'Waiting...');
-            editor2.classList.remove('error-indent', 'correct-indent');
+            editor2.classList.remove('error-border', 'correct-indent');
             
             setTimeout(() => {
                 editor2.focus();
@@ -329,15 +335,21 @@
         }
 
         editor2.addEventListener('scroll', () => nums2.scrollTop = editor2.scrollTop);
-        editor2.addEventListener('input', () => updateLines(editor2, nums2));
+        editor2.addEventListener('input', () => {
+            updateLines(editor2, nums2);
+            editor2.classList.remove('error-border', 'correct-indent');
+        });
         editor2.addEventListener('keydown', (e) => handleTab(e, editor2, nums2, (t) => updateBadge(2, t)));
 
         function checkIndentation2() {
             const lines = editor2.value.split('\n'); 
             const fb = document.getElementById('feedback-2');
             
+            editor2.classList.remove('error-border', 'correct-indent');
+
             if (lines.length !== sol2.length) {
                 showFeedback(fb, `Structure Error: Expected ${sol2.length} lines. You have ${lines.length}.`, "error");
+                editor2.classList.add('error-border');
                 return;
             }
 
@@ -346,14 +358,14 @@
                 if (leadingTabs !== sol2[i]) {
                     showFeedback(fb, `Indentation Error: Check line ${i+1}.`, "error");
                     updateBadge(2, 'Error Found', 'error');
-                    editor2.className = editor2.className.replace(/error-indent|correct-indent/g, '') + ' error-indent';
+                    editor2.classList.add('error-border');
                     return;
                 }
             }
 
             showFeedback(fb, "Success!", "success");
             updateBadge(2, 'Verified', 'success');
-            editor2.className = editor2.className.replace(/error-indent|correct-indent/g, '') + ' correct-indent';
+            editor2.classList.add('correct-indent');
         }
 
         // --- UI Helpers ---
